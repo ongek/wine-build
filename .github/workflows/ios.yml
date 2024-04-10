@@ -15,10 +15,10 @@ jobs:
       - name: Collect Workflow Telemetry
         uses: runforesight/workflow-telemetry-action@v1
       - name: 最初にCPUをチェック
-        run: sysctl machdep.cpu.brand_string & sysctl -n hw.logicalcpu_max & wget https://dl.winehq.org/wine/source/9.x/wine-9.5.tar.xz
+        run: sysctl machdep.cpu.brand_string & sysctl -n hw.logicalcpu_max & wget https://media.codeweavers.com/pub/crossover/source/crossover-sources-24.0.1.tar.gz
       - name: b
-        run: xz -dc wine-9.5.tar.xz | tar xfv -
+        run: tar -zcvf crossover-sources-24.0.1.tar.gz crossover
       - name: c
-        run: arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && arch -x86_64 /bin/bash && brew install cmake ninja bison flex freetype mingw-w64 gnutls libtiff krb5 FAudio lcms2 gstreamer gst-plugins-base sane-backends libusb libgsm libgphoto2 molten-vk vulkan-headers spirv-cross spirv-tools glslang && export PATH="/usr/local/opt/net-snmp/sbin:/usr/local/opt/net-snmp/bin:/usr/local/opt/icu4c/sbin:/usr/local/opt/icu4c/bin:/usr/local/opt/sqlite/bin:/usr/local/opt/krb5/sbin:/usr/local/opt/krb5/bin:/usr/local/opt/openssl@1.1/bin:/usr/local/opt/flex/bin:/usr/local/opt/bison/bin:$PATH" && export GUILE_LOAD_COMPILED_PATH="/usr/local/lib/guile/3.0/site-ccache" && export GUILE_SYSTEM_EXTENSIONS_PATH="/usr/local/lib/guile/3.0/extensions" && export GUILE_TLS_CERTIFICATE_DIRECTORY=/usr/local/etc/gnutls/
+        run: ./configure && make
       - name: d
         run: git clone https://github.com/KhronosGroup/SPIRV-Headers.git && cd SPIRV-Headers && mkdir build && cd build && cmake .. && make install && cd ../..
