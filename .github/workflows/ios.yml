@@ -17,8 +17,8 @@ jobs:
       - name: 最初にCPUをチェック
         run: sysctl machdep.cpu.brand_string & sysctl -n hw.logicalcpu_max & wget https://media.codeweavers.com/pub/crossover/source/crossover-sources-24.0.1.tar.gz
       - name: b
-        run: tar -zcvf crossover-sources-24.0.1.tar.gz crossover
+        run: tar -zxvf crossover-sources-24.0.1.tar.gz
       - name: c
-        run: ./configure && make
+        run: cd crossover-sources-24.0.1 && ./configure && make
       - name: d
         run: git clone https://github.com/KhronosGroup/SPIRV-Headers.git && cd SPIRV-Headers && mkdir build && cd build && cmake .. && make install && cd ../..
